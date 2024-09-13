@@ -1,6 +1,17 @@
-CREATE DATABASE localhost305;
+-- drop section
+drop schema if exists localhost305;
+drop user if exists 'api'@'localhost';
+
+-- create section
+CREATE schema localhost305;
+CREATE user 'api'@'localhost' identified by 'Root_1234';
+
+-- grant section
+grant select, insert, delete, update, create on localhost305.* to 'api'@'localhost';
+
 use localhost305;
 
+-- create sction
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
@@ -104,3 +115,10 @@ INSERT INTO fact_hirings (hiring_id, candidate_id, job_id, hiring_date, initial_
 (1, 1, 1, '2024-02-16', 15000.00, 'CLT', '2024-02-10 12:00:00'),
 (2, 2, 1, '2024-02-20', 14000.00, 'CLT', '2024-02-18 15:00:00'),
 (3, 3, 2, '2024-03-02', 12000.00, 'PJ', '2024-02-25 10:00:00');
+
+-- select * from dim_candidates;
+-- select * from dim_jobs;
+-- select * from dim_recruiters;
+-- select * from dim_recruitment_processes;
+-- select * from fact_applications;
+-- select * from fact_hirings;
