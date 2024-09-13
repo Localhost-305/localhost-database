@@ -2,7 +2,7 @@ CREATE DATABASE localhost305;
 
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name_users VARCHAR(200) NOT NULL
+    name VARCHAR(200) NOT NULL
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_on DATE NOT NULL,
