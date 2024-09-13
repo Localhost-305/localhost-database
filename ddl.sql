@@ -116,9 +116,14 @@ INSERT INTO fact_hirings (hiring_id, candidate_id, job_id, hiring_date, initial_
 (2, 2, 1, '2024-02-20', 14000.00, 'CLT', '2024-02-18 15:00:00'),
 (3, 3, 2, '2024-03-02', 12000.00, 'PJ', '2024-02-25 10:00:00');
 
+INSERT INTO users (email, name, password, created_on, updated_on) VALUES 
+('api@email.com', 'api', '$2a$12$qQHqq5cdoWedWUi25cDtjupMlxRWwKO74HkhbCzZctouolZpeyTV.', '2024-09-13', '2024-09-13');
+
+
 -- select * from dim_candidates;
 -- select * from dim_jobs;
 -- select * from dim_recruiters;
 -- select * from dim_recruitment_processes;
 -- select * from fact_applications;
 -- select * from fact_hirings;
+-- select * from users;
