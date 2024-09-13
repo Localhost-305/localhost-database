@@ -1,7 +1,9 @@
 CREATE DATABASE localhost305;
+use localhost305;
 
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_on DATE NOT NULL,
@@ -9,15 +11,15 @@ CREATE TABLE users (
 );
 
 CREATE TABLE dim_candidates (
-    candidate_id INT AUTO_INCREMENT PRIMARY KEY,
+    candidate_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     candidate_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(13)  NOT NULL,
     birth_date DATE NOT NULL
 );
 
 CREATE TABLE dim_jobs (
-    job_id INT AUTO_INCREMENT PRIMARY KEY,
+    job_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     job_title VARCHAR(100) NOT NULL,
     number_of_positions INT NOT NULL,
     job_requirements VARCHAR(500) NOT NULL,
@@ -29,7 +31,7 @@ CREATE TABLE dim_jobs (
 );
 
 CREATE TABLE dim_recruitment_processes (
-    process_id INT AUTO_INCREMENT PRIMARY KEY,
+    process_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     process_name VARCHAR(100) NOT NULL,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
@@ -38,17 +40,17 @@ CREATE TABLE dim_recruitment_processes (
 );
 
 CREATE TABLE dim_recruiters (
-    recruiter_id INT AUTO_INCREMENT PRIMARY KEY,
+    recruiter_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     recruiter_name VARCHAR(100) NOT NULL,
     role VARCHAR(30) NOT NULL,
     feedbacks_given INT NOT NULL
 );
 
 CREATE TABLE fact_applications (
-    recruiter_id INT,
-    candidate_id INT,
-    job_id INT,
-    process_id INT,
+    recruiter_id BIGINT,
+    candidate_id BIGINT,
+    job_id BIGINT,
+    process_id BIGINT,
     number_of_applications INT NOT NULL,
     PRIMARY KEY (recruiter_id, candidate_id, job_id, process_id),
     FOREIGN KEY (candidate_id) REFERENCES dim_candidates(candidate_id),
@@ -58,13 +60,14 @@ CREATE TABLE fact_applications (
 );
 
 CREATE TABLE fact_hirings (
-    hiring_id INT PRIMARY KEY,
-    candidate_id INT,
-    job_id INT,
+    hiring_id BIGINT AUTO_INCREMENT,
+    candidate_id BIGINT,
+    job_id BIGINT,
     hiring_date DATE NOT NULL,
     initial_salary DECIMAL(7,2) NOT NULL,
     contract_type VARCHAR(20) NOT NULL,
     acceptance_date DATETIME NOT NULL,
+    PRIMARY KEY (hiring_id, candidate_id, job_id),
     FOREIGN KEY (candidate_id) REFERENCES dim_candidates(candidate_id),
     FOREIGN KEY (job_id) REFERENCES dim_jobs(job_id)
 );
