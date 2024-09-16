@@ -13,7 +13,7 @@ use localhost305;
 
 -- create sction
 CREATE TABLE users (
-    users_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
