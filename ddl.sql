@@ -75,7 +75,7 @@ CREATE TABLE fact_applications (
     job_id BIGINT,
     process_id BIGINT,
     date_id BIGINT,
-    hour_id BIGINT
+    hour_id BIGINT,
     number_of_applications INT NOT NULL,
     PRIMARY KEY (recruiter_id, candidate_id, job_id, process_id, date_id, hour_id),
     FOREIGN KEY (candidate_id) REFERENCES dim_candidates(candidate_id),
