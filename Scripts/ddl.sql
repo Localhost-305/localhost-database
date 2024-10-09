@@ -104,6 +104,9 @@ CREATE TABLE fact_hirings (
     FOREIGN KEY (hour_id) REFERENCES dim_hour(hour_id)
 );
 
+alter table fact_hirings
+add contract_end_date date;
+
 INSERT INTO dim_candidates (candidate_id, candidate_name, email, phone, birth_date) 
 VALUES
 (1, 'Ana Silva', 'ana.silva@email.com', '11987654321', '1990-05-12'),

@@ -46,3 +46,33 @@ WHERE
     j.opening_date BETWEEN '2024-01-01' AND '2024-12-31'  -- Filtra as vagas pelo intervalo de datas desejado
 GROUP BY 
     j.job_title;  -- Agrupa por título da vaga
+
+-- 4º Realizar uma query que traga os dados referente a taxa de retenção de novos funcionários.  
+SELECT
+    -- Calcula a média arredondada da diferença entre a data de encerramento do contrato e a data de contratação
+    ROUND(AVG(DATEDIFF(contract_end_date, hiring_date))) AS retention_days
+FROM 
+    fact_hirings
+JOIN 
+    dim_jobs ON fact_hirings.job_id = dim_jobs.job_id
+WHERE 
+    -- Garante que apenas registros com data de encerramento do contrato (não nulos) sejam considerados
+    contract_end_date IS NOT NULL
+    -- Filtra os registros onde a data de encerramento do contrato está no intervalo de 01/01/2024 a 31/12/2024
+    AND contract_end_date BETWEEN '2024-01-01' AND '2024-12-31'
+    -- Filtra pelo cargo específico
+    AND dim_jobs.job_title = 'Cytogeneticist';
+
+-- Média de retenção por vaga
+SELECT 
+    job_title,
+    ROUND(AVG(DATEDIFF(contract_end_date, hiring_date))) AS retention_days
+FROM
+    fact_hirings
+        JOIN
+    dim_jobs ON fact_hirings.job_id = dim_jobs.job_id
+WHERE
+    contract_end_date IS NOT NULL
+    AND contract_end_date BETWEEN '2024-01-01' AND '2024-12-31'
+GROUP BY 
+	job_title;
