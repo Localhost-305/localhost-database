@@ -16,6 +16,7 @@ INNER JOIN dim_jobs j ON a.job_id = j.job_id  -- Junta com a tabela de dimensõe
 INNER JOIN dim_date d ON a.date_id = d.date_id  -- Junta com a tabela de dimensões de datas para obter a data da candidatura
 WHERE
     STR_TO_DATE(CONCAT(d.year, '-', d.month, '-', d.day), '%Y-%m-%d') BETWEEN j.opening_date AND j.closing_date  -- Filtra candidaturas com datas dentro do intervalo da vaga
+    and job_title = 'Engineer, land'
 GROUP BY 
     j.job_title;  -- Agrupa os resultados pelo título da vaga
 
