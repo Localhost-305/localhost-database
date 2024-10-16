@@ -1,13 +1,13 @@
 -- drop section
-drop schema if exists localhost305;
-drop user if exists 'api'@'localhost';
+DROP SCHEMA IF EXISTS localhost305;
+DROP USER IF EXISTS 'api'@'localhost';
+
 
 -- create section
-CREATE schema localhost305;
-CREATE user 'api'@'localhost' identified by 'Root_1234';
+CREATE USER 'api'@'localhost' IDENTIFIED BY 'Root_1234';
+GRANT ALL PRIVILEGES ON localhost305.* TO 'api'@'localhost';
 
--- grant section
-grant select, insert, delete, update, create on localhost305.* to 'api'@'localhost';
+FLUSH PRIVILEGES;
 
 use localhost305;
 
