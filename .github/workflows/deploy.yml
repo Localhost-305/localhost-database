@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - feature/LOC-72
+
+jobs:
+  deploy:
+    runs-on: database
+    steps:
+      - name: Remove Docker container
+        run: docker rm -f ${{ secrets.DOCKER_CONTAINER_BACKEND }}
+
+      - name: Remove unused Docker images
+        run: docker image prune -a -f
+
+      - name: Run Docker container
+        run: docker run -d --name ${{ secrets.DOCKER_CONTAINER_DATABASE }} --network ${{ secrets.DOCKER_NETWORK }} -p 3306:3306 -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD='${{ secrets.DATABASE_PASSWORD }}' ghcr.io/${{ vars.GIT_REPOSITORY_DATABASE }}/${{ vars.DOCKER_IMAGE_DATABASE }}:latest
