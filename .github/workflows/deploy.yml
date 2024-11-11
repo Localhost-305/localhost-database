@@ -10,7 +10,7 @@ jobs:
     runs-on: database
     steps:
       - name: Remove Docker container
-        run: docker rm -f ${{ secrets.DOCKER_CONTAINER_BACKEND }}
+        run: docker rm -f ${{ secrets.DOCKER_CONTAINER_DATABASE }}
 
       - name: Remove unused Docker images
         run: docker image prune -a -f
