@@ -16,7 +16,7 @@ jobs:
         run: docker image prune -a -f
 
       - name: Run Docker container
-        run: docker run -d --name ${{ secrets.DOCKER_CONTAINER_DATABASE }} --network ${{ secrets.DOCKER_NETWORK }} --mount "${{ secrets.DOCKER_VOLUME_DATABASE_PATH }}"  -v /home/ubuntu/my.cnf:/etc/mysql/my.cnf -e MYSQL_ROOT_PASSWORD=${{ secrets.DATABASE_ROOT_PASSWORD }} -e MYSQL_DATABASE=${{ secrets.DATABASE_SCHEMA }} -e MYSQL_USER=${{ secrets.DATABASE_USER_NAME }} -e MYSQL_PASSWORD='${{ secrets.DATABASE_USER_PASSWORD }}' -p 3306:3306 mysql:latest 
+        run: docker run -d --name ${{ secrets.DOCKER_CONTAINER_DATABASE }} --network ${{ secrets.DOCKER_NETWORK }} --mount "${{ secrets.DOCKER_VOLUME_DATABASE_PATH }}" -e MYSQL_ROOT_PASSWORD=${{ secrets.DATABASE_ROOT_PASSWORD }} -e MYSQL_DATABASE=${{ secrets.DATABASE_SCHEMA }} -e MYSQL_USER=${{ secrets.DATABASE_USER_NAME }} -e MYSQL_PASSWORD='${{ secrets.DATABASE_USER_PASSWORD }}' -p 3306:3306 mysql:latest 
         
   configure-database:
     needs: deploy
