@@ -1,19 +1,22 @@
-name: Deploy
+name: Deploy - QA
 
 on:
   push:
     branches:
-      - feature/LOC-72
+      - qa
 
 jobs:
   deploy:
-    runs-on: database
+    runs-on: database-qa
     steps:
       - name: Remove Docker container
         run: docker rm -f ${{ secrets.DOCKER_CONTAINER_DATABASE }}
 
       - name: Remove unused Docker images
         run: docker image prune -a -f
+
+      - name: Remove unused Docker volumes
+        run: docker volume prune -a -f
 
       - name: Run Docker container
         run: docker run -d --name ${{ secrets.DOCKER_CONTAINER_DATABASE }} --network ${{ secrets.DOCKER_NETWORK }} --mount "${{ secrets.DOCKER_VOLUME_DATABASE_PATH }}" -e MYSQL_ROOT_PASSWORD=${{ secrets.DATABASE_ROOT_PASSWORD }} -e MYSQL_DATABASE=${{ secrets.DATABASE_SCHEMA }} -e MYSQL_USER=${{ secrets.DATABASE_USER_NAME }} -e MYSQL_PASSWORD='${{ secrets.DATABASE_USER_PASSWORD }}' -p 3306:3306 mysql:latest 
