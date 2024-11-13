@@ -3,7 +3,7 @@ name: Deploy - QA
 on:
   push:
     branches:
-      - qa
+      - feature/LOC-72
 
 jobs:
   deploy:
