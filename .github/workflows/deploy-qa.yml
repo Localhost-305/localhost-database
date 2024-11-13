@@ -23,7 +23,7 @@ jobs:
         
   configure-database:
     needs: deploy
-    runs-on: database
+    runs-on: database-qa
     steps:
       - name: Flush the privileges for the user
         run: |
